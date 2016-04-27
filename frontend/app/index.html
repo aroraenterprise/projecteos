@@ -24,7 +24,7 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header" ng-controller="MainCtrl">
   <!-- Add your site or application content here -->
   <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
     <div class="mdl-layout__header-row">
@@ -48,6 +48,7 @@
         <li class="mdl-menu__item">Legal information</li>
       </ul>
     </div>
+    <div id="p2" ng-show="isLoading" class="mdl-progress mdl-js-progress mdl-progress__indeterminate" style="width: 100%;"></div>
   </header>
 
   <!-- drawer -->
@@ -86,6 +87,9 @@
 <script src="bower_components/angular-touch/angular-touch.js"></script>
 <script src="bower_components/material-design-lite/material.min.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/restangular/dist/restangular.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -93,6 +97,12 @@
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/controllers/about.js"></script>
+<script src="scripts/services/apiservice.js"></script>
+<script src="scripts/controllers/data.js"></script>
+<script src="scripts/services/notification.js"></script>
+<script src="scripts/directives/snackbardirective.js"></script>
+<script src="scripts/controllers/home.js"></script>
+<script src="scripts/controllers/analytics.js"></script>
 <!-- endbuild -->
 </body>
 </html>

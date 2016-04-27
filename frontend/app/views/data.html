@@ -1,0 +1,32 @@
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col">
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-responsive">
+      <thead>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">Name</th>
+        <th class="mdl-data-table__cell--non-numeric">Type</th>
+        <th class="mdl-data-table__cell--non-numeric">Date/Time</th>
+        <th class="mdl-data-table__cell--non-numeric">Geoposition</th>
+        <th>Deaths</th>
+        <th>Injuries</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="item in items.list">
+        <td class="mdl-data-table__cell--non-numeric">{{ item.name | limitTo: 25 }}{{item.name.length > 25 ? '...' : ''}}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{ item.type }}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{ item.start_datetime | date: 'short' }}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{ item.state || (item.latitude + ", " + item.longitude)}}</td>
+        <td>{{ item.direct_deaths + item.indirect_deaths || 0}}</td>
+        <td>{{ item.direct_injuries + item.indirect_injuries ||  0 }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="pager text-center">
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="goNext(true)"
+              ng-disabled="isLoading || !items.meta || !items.meta.more">
+        Load More...
+      </button>
+    </div>
+  </div>
+</div>
