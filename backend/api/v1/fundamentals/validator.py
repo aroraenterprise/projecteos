@@ -101,6 +101,10 @@ class SageValidator(object):
     """
 
     DATE_TIME = 'date_time'
+    model = None
+    email = util.EMAIL_REGEX
+    alphanum = util.ALPHANUM_REGEX
+    alpha = util.ALPHA_REGEX
 
     @classmethod
     def create(cls, name, return_type=None):
@@ -148,7 +152,7 @@ class SageValidator(object):
         if _.is_list(attr):
             return util.create_validator(lengths=attr, return_type=return_type)
         elif _.is_function(attr):
-            return attr
+            return getattr(cls(), name)
         elif 'regex' in attr and 'lengths' in attr:  # contains both regex and lengths
             return util.create_validator(regex=attr.get('regex'), lengths=attr.get('lengths'),
                                          return_type=return_type)

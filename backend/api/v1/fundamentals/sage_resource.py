@@ -7,14 +7,20 @@ from flask_restful import Resource
 
 from .model import SageModel
 from .validator import SageValidator
-from .sage_controller import get_default_controllers
+from .sage_controller import SageController, get_default_controllers
 from .sage_methods import SageMethod
 from .modules import Module
 
 class SageResource(Module):
+    ALL = SageController.ALL
+    ONE = SageController.ONE
     _model = None
     _validator = None
     _behind_authentication = None
+    _default_endpoints = {
+        ALL: [SageMethod.GET, SageMethod.POST],
+        ONE: [SageMethod.GET, SageMethod.PUT, SageMethod.DELETE]
+    }
 
     def __init__(self, uid, name,
                  within_uid=None,  # uid of resource this resource belongs to
@@ -22,6 +28,7 @@ class SageResource(Module):
                  # (e.g. users/123/pictures: pictures is inside users resource)
                  model_dict=None, # dictionary with all the model properties
                  validator_dict=None, # dictionary with all the validator properties
+                 endpoints=None,
                  controllers=None, # array of instances of SageController class
                  authenticate=True
                  ):
@@ -32,12 +39,34 @@ class SageResource(Module):
         self.within_uid = within_uid
         self.model_dict = model_dict
         self.validator_dict = validator_dict
-        if controllers: # sent controller dictionary
-            for type, value in controllers.iteritems():
-
-        self.controllers = controllers or get_default_controllers(self.name)
+        self.endpoints = endpoints or self._default_endpoints
+        self.controllers = self.create_controllers(self.endpoints, controllers)
         self.dependencies = dependencies or []
         self._behind_authentication = authenticate
+
+    def create_controllers(self, endpoints, controllers):
+        result = {}
+        default_controllers = get_default_controllers(self.name)
+        for type, endpoints in endpoints.iteritems():
+            # figure out url based on type (all or one)
+            _type = '' if type == self.ALL else '<string:%skey>' % self.name
+            if _type not in result:
+                result[_type] = []
+
+            if not isinstance(endpoints, list):
+                endpoints = [endpoints]
+
+            for endpoint in endpoints:
+                controller = None
+                # get controller from assigned or default controllers
+                if controllers and type + endpoint in controllers: # e.g. allget
+                    controller = controllers.get(type + endpoint)
+                else:
+                    controller = default_controllers.get(type + endpoint)
+
+                if controller:
+                    result[_type].append(controller)
+        return result
 
     # override the module link to actually build the resource
     def link(self, api, **kwds): # builds the resource

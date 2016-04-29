@@ -19,6 +19,9 @@ import pydash as _
 
 
 class SageController(object):
+    ONE = 'one'
+    ALL = 'all'
+
     def __init__(self, fxn, method=SageMethod.GET, key_name=None, authenticate=None):
         self.key_name = key_name
         self.authenticate = authenticate
@@ -96,8 +99,6 @@ def sage_list_controller_fxn(self, resource, **kwargs):
         if len(filters) > 0:
             filter_node = ndb.AND(*filters)
 
-        print filter_node
-
     items_future = _Model.query(filters=filter_node).order(args.order or -_Model.modified) \
         .fetch_page_async(args.limit or _DEFAULT_LIMIT, start_cursor=args.cursor)
 
@@ -168,18 +169,9 @@ def sage_remove_controller_fxn(self, key, resource, **kwargs):
 
 def get_default_controllers(name):
     return {
-        '': [
-            SageController(sage_list_controller_fxn,
-                           SageMethod.GET, key_name=name),
-            SageController(sage_create_controller_fxn,
-                           SageMethod.POST, key_name=name),
-        ],
-        '<string:%skey>' % name:[
-            SageController(sage_get_controller_fxn,
-                           SageMethod.GET, key_name=name),
-            SageController(sage_update_controller_fxn,
-                           SageMethod.PUT, key_name=name),
-            SageController(sage_remove_controller_fxn,
-                           SageMethod.DELETE, key_name=name)
-        ]
+        SageController.ALL + SageMethod.GET: SageController(sage_list_controller_fxn, SageMethod.GET, key_name=name),
+        SageController.ALL + SageMethod.POST: SageController(sage_create_controller_fxn, SageMethod.POST, key_name=name),
+        SageController.ONE + SageMethod.GET: SageController(sage_get_controller_fxn, SageMethod.GET, key_name=name),
+        SageController.ONE + SageMethod.PUT: SageController(sage_update_controller_fxn, SageMethod.PUT, key_name=name),
+        SageController.ONE + SageMethod.DELETE: SageController(sage_remove_controller_fxn, SageMethod.DELETE, key_name=name)
     }

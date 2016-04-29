@@ -104,6 +104,14 @@ class SageModel(ndb.Model):
     def get_key_urlsafe(self):
         return self.key.urlsafe()
 
+    @classmethod
+    def get_by(cls, name, value, keys_only=None):
+        """Gets model instance by given property name and value
+        :param name:
+        :param value:
+        :param keys_only:
+        """
+        return cls.query(getattr(cls, name) == value).get(keys_only=keys_only)
 
     def to_dict(self, include=None):
         """Return a dict containing the entity's property values, so it can be passed to client
@@ -160,6 +168,7 @@ class SageModel(ndb.Model):
         but if no validator then returns the SageValidator class
         :return:
         """
+        cls.validator.model = cls
         return cls.validator or SageValidator
 
     def _validate(self):

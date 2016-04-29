@@ -28,8 +28,8 @@ def index():
     return flask.jsonify(dict(works=True))
 
 
-from dataset_module import default_controllers
-app.add_modules([])
+from dataset_module import dataset_module
+app.add_modules([dataset_module])
 
 
 @app.after_request
