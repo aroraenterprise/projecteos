@@ -20,7 +20,7 @@ angular
     'restangular',
     'uiGmapgoogle-maps',
     'ngMaterial',
-    'nvd3ChartDirectives'
+    'nvd3'
   ])
   .config(function ($locationProvider, uiGmapGoogleMapApiProvider, $stateProvider, $urlRouterProvider, RestangularProvider) {
     uiGmapGoogleMapApiProvider.configure({
@@ -47,6 +47,10 @@ angular
       url: '/timeline',
       templateUrl: 'views/timeline.html',
       controller: 'TimelineCtrl'
+    }).state('add-data', {
+      url: '/add-data',
+      templateUrl: 'views/add-data.html',
+      controller: 'AddDataCtrl'
     });
 
     /**

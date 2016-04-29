@@ -114,3 +114,15 @@ md-select {
   margin: 0;
   margin-top: -5px;
 }
+
+.bg-dark-color {
+  background: #424242;
+  color: #ddd;
+  &, label {
+    color: #ddd !important;
+  }
+  .md-input-focused, input {
+    color: #fff !important;
+    border-color: #ddd !important;
+  }
+}

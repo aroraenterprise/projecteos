@@ -50,16 +50,7 @@
       </h2>
     </div>
     <div class="mdl-card__supporting-text damage-chart" style="width:100%">
-      <nvd3-multi-bar-chart
-        data="exampleData"
-        id="colorExample"
-        height="400"
-        showXAxis="true"
-        showYAxis="true"
-        xAxisTickFormat="xAxisTickFormatFunction()"
-        color="colorFunction()">
-        <svg></svg>
-      </nvd3-multi-bar-chart>
+      <nvd3 options="options" data="chartData"></nvd3>
     </div>
     <div class="mdl-card__actions mdl-card--border">
       <!-- Slider with Starting Value -->
