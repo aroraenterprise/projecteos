@@ -18,7 +18,10 @@ angular.module('frontendApp')
       email: 'saj.arora@nyu.edu',
       name: 'Storm',
       description: 'Storm data from NOAA for United States since 1995.',
-      file: 'https://drive.google.com/open?id=0By0A1Jdf2gSMS0UtNnphSGJ3RU0'
+      files: ['https://www.dropbox.com/s/8gg4bubpaf16whj/StormEvents_details-ftp_v1.0_d2016_c20160419.csv?dl=1']
     };
 
+    $scope.addFile = function(){
+      $scope.data.files.push('http://');
+    }
   });

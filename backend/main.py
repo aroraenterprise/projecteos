@@ -29,6 +29,7 @@ def index():
 
 
 from dataset_module import dataset_module
+from tasks import *
 app.add_modules([dataset_module])
 
 

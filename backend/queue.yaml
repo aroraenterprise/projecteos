@@ -1,0 +1,6 @@
+total_storage_limit: 100M
+queue:
+- name: processor-queue
+  rate: 1/s
+  max_concurrent_requests: 5
+  bucket_size: 30

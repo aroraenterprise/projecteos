@@ -45,20 +45,24 @@
           </div>
         </div>
       </md-input-container>
-      <md-input-container class="md-block">
+      <md-input-container class="md-block" ng-repeat="file in data.files track by $index">
         <label>Link to .csv Dataset File</label>
-        <input ng-model="data.file" name="file" required>
-        <div class="hint">
-          We recommend using <a href="http://dropbox.com"><i class="fa fa-dropbox"></i> Dropbox</a> or
-          <a href="http://drive.google.com"><i class="fa fa-google"></i> Google Drive</a> to host the data file. Please ensure
-          the file is publicly accessible!
-        </div>
+        <input ng-model="file" name="file" required>
         <div ng-messages="uploadData.file.$error" role="alert">
           <div ng-message-exp="['required']">
             Link to dataset file is required.
           </div>
         </div>
+        <div ng-if="$index == data.files.length - 1">
+          <div class="hint">
+            We recommend using <a href="http://dropbox.com"><i class="fa fa-dropbox"></i> Dropbox</a> to host the data file. Please ensure
+            the file is publicly accessible and downloaded when the link is visited!
+          </div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect pull-right" type="button" ng-click="addFile()">
+            <i class="fa fa-plus-circle"></i> Add File</button>
+        </div>
       </md-input-container>
+
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
               type="submit" ng-disabled="!uploadData.$valid">
         <i class="fa fa-play"></i> Process Dataset

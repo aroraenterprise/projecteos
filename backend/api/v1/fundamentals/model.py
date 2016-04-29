@@ -124,7 +124,7 @@ class SageModel(ndb.Model):
         if include is None:
             include = []
             for name, prop in _MODEL._properties.iteritems():
-                if hasattr(prop, 'public'):
+                if hasattr(prop, 'public') and getattr(prop, 'public', False):
                     include.append(name)
 
         for name in include:
@@ -149,7 +149,8 @@ class SageModel(ndb.Model):
             else:
                 repr_dict[name] = value
 
-            repr_dict['key'] = self.get_key_urlsafe()
+            if self._key:
+                repr_dict['key'] = self.get_key_urlsafe()
         return repr_dict
 
     @classmethod

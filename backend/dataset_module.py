@@ -3,14 +3,37 @@ Project: ProjectEos-Server
 Author: Saj Arora
 Description: Model for Dataset
 """
-from api.v1 import SageString, SageModel, SageText, SageInteger, SageResource, SageController, get_default_controllers, \
-    SageMethod, errors, helper, util
+
+import json
+
+from google.appengine.api.taskqueue import taskqueue
+
+from api.v1 import SageString, SageText, SageInteger, SageResource, SageController, SageMethod, errors, helper, util, SageBool, SageJson
 
 
 def add_dataset(self, resource, **kwargs):
-    args = helper.parse_args_for_model(resource.get_model())
+    _Model = resource.get_model()
+    args = helper.parse_args_for_model(_Model, [{'name': 'file', 'required': True, 'action': 'append'}])
     args['secret'] = util.uuid()
-    return dict(**args)
+    args['headers'] = []
+    files = args.pop('file')
+    model = _Model(**args)
+    model.status = dict(code='Started...')
+    model.put()
+
+    # start the processing
+    response = model.to_dict()
+    response['secret'] = model.secret # force show the secret on creation
+
+    task = taskqueue.add( # first process headers
+        queue_name='processor-queue',
+        url='/tasks/process_headers',
+        payload= json.dumps(dict(
+            key=model.get_key_urlsafe(),
+            files=files)
+        ))
+
+    return response
 
 
 def unique_name(self, name):
@@ -27,12 +50,16 @@ dataset_module = SageResource(
     model_dict={
         'name': SageString(required=True, validator_name='unique_name'),
         'email': SageString(required=True, validator_name='email'),
-        'secret': SageString(),
+        'secret': SageString(editable=False, public=False),
         'description': SageText(required=True),
-        'total_records': SageInteger()
+        'total_records': SageInteger(editable=False),
+        'status': SageJson(editable=False),
+        'headers': SageJson(repeated=True),
+        'parser_data': SageJson(public=False, editable=False),
+        'is_ready': SageBool(editable=False, default=False)
     },
     validator_dict={
-      'unique_name': unique_name
+        'unique_name': unique_name
     },
     endpoints={
         SageResource.ALL: [

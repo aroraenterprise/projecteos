@@ -118,7 +118,7 @@ md-select {
 .bg-dark-color {
   background: #424242;
   color: #ddd;
-  &, label {
+  &, label, .mdl-button {
     color: #ddd !important;
   }
   .md-input-focused, input {
