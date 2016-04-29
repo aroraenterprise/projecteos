@@ -1,0 +1,22 @@
+<a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored
+  bottom-right-button" ui-sref="add-data">
+  <i class="material-icons">add</i>
+</a>
+
+<div class="mdl-grid bg-dark-color animated slideInDown">
+  <form class="mdl-cell--8-col mdl-cell--2-offset text-center" name="uploadData" ng-submit="upload()">
+    <h2><i class="fa fa-rocket"></i> Search <strong>Project EOS</strong></h2>
+    <div class="mdl-cell--12-col text-left">
+      <md-input-container class="md-block">
+        <label><i class="fa fa-search"></i> Search</label>
+        <input name="search" ng-model="data.search" required>
+      </md-input-container>
+    </div>
+  </form>
+</div>
+
+<div class="mdl-grid">
+  <div ng-repeat="dataset in datasets">
+
+  </div>
+</div>

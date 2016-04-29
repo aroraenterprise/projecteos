@@ -33,7 +33,7 @@ angular
 
     $stateProvider.state('home', {
       url: '/',
-      templateUrl: 'views/main.html',
+      templateUrl: 'views/home.html',
       controller: 'HomeCtrl'
     }).state('data', {
       url: '/data',

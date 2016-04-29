@@ -41,4 +41,8 @@ angular.module('frontendApp')
       });
       return promise;
     };
+
+    this.addDataset = function(params){
+      var promise = Restangular.all()
+    }
   });
