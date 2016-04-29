@@ -13,32 +13,32 @@ angular.module('frontendApp')
 
     this.storms = {};
     this.params = null;
-    this.ready = true;
 
-    this.listStorms = function(){
-      if (!me.ready)
-        return;
+    this.setParams = function(type, params) {
+      me.params[type] = params;
+      me.data[type] = {
+        list: [],
+        meta: {}
+      }
+    };
 
-      if (!me.storms.list){
-        me.storms = {
-          list: [],
-          meta: {}
-        };
+    this.list = function(type){
+      if (!me.data[type].list){
+        me.setParams(type);
       }
 
-      me.ready = false;
-      var promise = Restangular.all('storms').getList(me.params);
+      var promise = Restangular.all(type).getList(me.params[type]);
       promise.then(function(response){
         if (response) {
-          angular.forEach(response, function (storm) {
-            me.storms.list.push(storm);
+          angular.forEach(response, function (item) {
+            me.data[type].list.push(item);
           });
-          me.storms.meta = response.meta;
-          me.params.cursor = response.meta.next_cursor;
+          me.data[type].meta = response.meta;
+          me.params[type].cursor = response.meta.next_cursor;
         }
       }, function(error){
         console.log(error);
-      }).finally(function(){me.ready = true});
+      });
       return promise;
-    }
+    };
   });

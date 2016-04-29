@@ -1,6 +1,7 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "font-awesome/scss/font-awesome.scss";
 // endbower
 
 .browsehappy {
@@ -88,4 +89,28 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+
+.angular-google-map-container { height: 500px; }
+
+.damage-chart { height: 400px; }
+
+.mdl-card { margin-bottom: 20px; }
+
+.spacing {
+  height: 40px; width: 100%;
+  :after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+md-select {
+  margin: 0;
+  margin-top: -5px;
 }

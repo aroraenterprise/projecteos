@@ -17,9 +17,18 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'restangular'
+    'restangular',
+    'uiGmapgoogle-maps',
+    'ngMaterial',
+    'nvd3ChartDirectives'
   ])
-  .config(function ($locationProvider, $stateProvider, $urlRouterProvider, RestangularProvider) {
+  .config(function ($locationProvider, uiGmapGoogleMapApiProvider, $stateProvider, $urlRouterProvider, RestangularProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+      //    key: 'your api key',
+      v: '3.20', //defaults to latest 3.X anyhow
+      libraries: 'weather,geometry,visualization'
+    });
+
     $urlRouterProvider.otherwise('/');
 
     $stateProvider.state('home', {
@@ -30,10 +39,14 @@ angular
       url: '/data',
       templateUrl: 'views/data.html',
       controller: 'DataCtrl'
-    }).state('analytics', {
-      url: '/analytics',
-      templateUrl: 'views/analytics.html',
-      controller: 'AnalyticsCtrl'
+    }).state('xsection', {
+      url: '/xsection',
+      templateUrl: 'views/xsection.html',
+      controller: 'XSectionCtrl'
+    }).state('timeline', {
+      url: '/timeline',
+      templateUrl: 'views/timeline.html',
+      controller: 'TimelineCtrl'
     });
 
     /**

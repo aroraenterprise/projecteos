@@ -1,0 +1,63 @@
+<div class="mdl-grid">
+  <div class="mdl-cell--12-col mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text"><i class="material-icons">assessment</i> Graph Visualizations</h2>
+    </div>
+    <div class="mdl-card__supporting-text damage-chart" style="width:100%">
+      <nvd3-line-chart
+        data="exampleData"
+        showXAxis="true"
+        showYAxis="true"
+        tooltips="true"
+        interactive="true">
+      </nvd3-line-chart>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+      <!-- Slider with Starting Value -->
+      <div layout>
+        <div flex="10" layout layout-align="center center">
+          <span class="md-body-1">Select Year</span>
+        </div>
+        <md-slider flex class="md-primary" md-discrete ng-model="visualization.map.year" min="{{visualization.map.yearMin}}"
+                   max="{{visualization.map.yearMax}}" aria-label="Map Year">
+        </md-slider>
+      </div>
+    </div>
+    <div class="mdl-card__menu">
+      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">share</i>
+      </button>
+    </div>
+  </div>
+
+  <div class="mdl-cell--12-col mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text"><i class="material-icons">assessment</i> Graph Visualizations</h2>
+    </div>
+    <div class="mdl-card__supporting-text damage-chart" style="width:100%">
+      <nvd3-line-chart
+        data="exampleData"
+        showXAxis="true"
+        showYAxis="true"
+        tooltips="true"
+        interactive="true">
+      </nvd3-line-chart>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+      <!-- Slider with Starting Value -->
+      <div layout>
+        <div flex="10" layout layout-align="center center">
+          <span class="md-body-1">Select Year</span>
+        </div>
+        <md-slider flex class="md-primary" md-discrete ng-model="visualization.map.year" min="{{visualization.map.yearMin}}"
+                   max="{{visualization.map.yearMax}}" aria-label="Map Year">
+        </md-slider>
+      </div>
+    </div>
+    <div class="mdl-card__menu">
+      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">share</i>
+      </button>
+    </div>
+  </div>
+</div>
