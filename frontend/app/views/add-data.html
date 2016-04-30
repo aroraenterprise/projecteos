@@ -1,5 +1,5 @@
-<div class="mdl-grid">
-  <div class="mdl-cell--8-col mdl-cell--2-offset text-center">
+<div ng-show="show.start" class="mdl-grid">
+  <div class="mdl-cell--8-col mdl-cell--2-offset text-center animated slideInUp">
     <h2>1. What would you like to do?</h2>
     <div class="mdl-cell--12-col">
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
@@ -15,7 +15,7 @@
   </div>
 </div>
 <div ng-show="show.new" class="mdl-grid bg-dark-color animated slideInUp">
-  <form class="mdl-cell--8-col mdl-cell--2-offset text-center" name="uploadData" ng-submit="upload()">
+  <form class="mdl-cell--8-col mdl-cell--2-offset text-center" name="uploadData" ng-submit="processData()">
     <h2>2. Tell us about the dataset.</h2>
     <div class="mdl-cell--12-col text-left">
       <md-input-container>
@@ -70,67 +70,35 @@
     </div>
     <div class="spacing"></div>
   </form>
+</div>'
+
+<div ng-show="show.final" class="mdl-grid">
+  <div class="mdl-cell--8-col mdl-cell--2-offset text-center animated slideInUp">
+    <h2>3. Modify data types.</h2>
+    <div class="spacing mdl-cell--12-col">
+      <div class="badge badge-important">Status: {{ dataset.status.code }}</div>
+      <div ng-show="datasetLoading"><i class="fa fa-circle-o-notch fa-spin"></i> This will automatically reload when your dataset is ready.</div>
+    </div>
+    <div class="mdl-cell--12-col text-left">
+      <div class="md-block" ng-repeat="item in dataset.headers">
+        <md-input-container>
+          <label>Header Name</label>
+          <input name="{{item.name}}" ng-model="item.name" required>
+        </md-input-container>
+        <md-input-container style="margin: 0;margin-top: -25px;width: 150px;">
+          <label>Header Type</label>
+          <md-select ng-model="item.type">
+            <md-option ng-repeat="type in headerTypes" value="{{type}}">
+              {{type}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+              ng-click="updateDataset()" type="submit" ng-show="!datasetLoading">
+        <i class="fa fa-check"></i> Save & Parse Dataset
+      </button>
+    </div>
+    <div class="spacing"></div>
+  </div>
 </div>
-<!--<div class="mdl-grid">-->
-<!--<div>-->
-<!--<form name="userForm">-->
-<!--<div layout-gt-xs="row">-->
-<!--<md-input-container class="md-block" flex-gt-xs>-->
-<!--<label>Company (Disabled)</label>-->
-<!--<input ng-model="user.company" disabled>-->
-<!--</md-input-container>-->
-<!--<md-datepicker ng-model="user.submissionDate" md-placeholder="Enter date">-->
-<!--</md-datepicker>-->
-<!--</div>-->
-<!--<div layout-gt-sm="row">-->
-<!--<md-input-container class="md-block" flex-gt-sm>-->
-<!--<label>First name</label>-->
-<!--<input ng-model="user.firstName">-->
-<!--</md-input-container>-->
-<!--<md-input-container class="md-block" flex-gt-sm>-->
-<!--<label>Last Name</label>-->
-<!--<input ng-model="theMax">-->
-<!--</md-input-container>-->
-<!--</div>-->
-<!--<md-input-container class="md-block">-->
-<!--<label>Address</label>-->
-<!--<input ng-model="user.address">-->
-<!--</md-input-container>-->
-<!--<md-input-container md-no-float class="md-block">-->
-<!--<input ng-model="user.address2" placeholder="Address 2">-->
-<!--</md-input-container>-->
-<!--<div layout-gt-sm="row">-->
-<!--<md-input-container class="md-block" flex-gt-sm>-->
-<!--<label>City</label>-->
-<!--<input ng-model="user.city">-->
-<!--</md-input-container>-->
-<!--<md-input-container class="md-block" flex-gt-sm>-->
-<!--<label>State</label>-->
-<!--<md-select ng-model="user.state">-->
-<!--<md-option ng-repeat="state in states" value="{{state.abbrev}}">-->
-<!--{{state.abbrev}}-->
-<!--</md-option>-->
-<!--</md-select>-->
-<!--</md-input-container>-->
-<!--<md-input-container class="md-block" flex-gt-sm>-->
-<!--<label>Postal Code</label>-->
-<!--<input name="postalCode" ng-model="user.postalCode" placeholder="12345"-->
-<!--required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">-->
-<!--<div ng-messages="userForm.postalCode.$error" role="alert" multiple>-->
-<!--<div ng-message="required" class="my-message">You must supply a postal code.</div>-->
-<!--<div ng-message="pattern" class="my-message">That doesn't look like a valid postal-->
-<!--code.-->
-<!--</div>-->
-<!--<div ng-message="md-maxlength" class="my-message">-->
-<!--Don't use the long version silly...we don't need to be that specific...-->
-<!--</div>-->
-<!--</div>-->
-<!--</md-input-container>-->
-<!--</div>-->
-<!--<md-input-container class="md-block">-->
-<!--<label>Biography</label>-->
-<!--<textarea ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>-->
-<!--</md-input-container>-->
-<!--</form>-->
-<!--</div>-->
-<!--</div>-->

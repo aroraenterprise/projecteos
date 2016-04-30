@@ -9,13 +9,13 @@ from google.appengine.ext import ndb
 from api.v1 import errors
 
 
-def parse_args_for_model(model, extra_args = None):
+def parse_args_for_model(model, extra_args = None, validator=True):
     parser = reqparse.RequestParser()
 
     # get all editable properties
     for prop in model.get_editable_properties():
         parser_type = prop.validator_type
-        if model.get_validator():
+        if validator and model.get_validator():
             parser_type = model.get_validator().create(prop.validator_name, return_type=prop.validator_type)
         parser.add_argument(prop._name, type=parser_type, required=prop.required,
                             action='append' if prop._repeated else 'store')

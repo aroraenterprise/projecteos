@@ -93,7 +93,7 @@ class SageComputed(ndb.ComputedProperty):
         self.required = kwds.get('required', False)
 
 
-class SageModel(ndb.Model):
+class SageModel(ndb.Expando):
     created = SageDateTime(auto_now_add=True, editable=False)
     modified = SageDateTime(auto_now=True, editable=False)
     validator = None

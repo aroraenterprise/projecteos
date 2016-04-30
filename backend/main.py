@@ -27,13 +27,14 @@ def index():
     print 'hello'
     return flask.jsonify(dict(works=True))
 
+@app.after_request
+def add_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
 
 from dataset_module import dataset_module
 from tasks import *
 app.add_modules([dataset_module])
 
 
-@app.after_request
-def add_headers(response):
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    return response
+

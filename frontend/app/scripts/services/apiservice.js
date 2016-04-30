@@ -43,6 +43,6 @@ angular.module('frontendApp')
     };
 
     this.addDataset = function(params){
-      var promise = Restangular.all()
+      return Restangular.all('datasets').post(params);
     }
   });
