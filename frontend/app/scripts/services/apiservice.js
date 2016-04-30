@@ -11,11 +11,11 @@ angular.module('frontendApp')
   .service('apiService', function (Restangular, $timeout, notificationFactory) {
     var me = this;
 
-    this.storms = {};
-    this.params = null;
+    this.data = {};
+    this.params = {};
 
     this.setParams = function(type, params) {
-      me.params[type] = params;
+      me.params[type] = params || {};
       me.data[type] = {
         list: [],
         meta: {}
@@ -23,7 +23,7 @@ angular.module('frontendApp')
     };
 
     this.list = function(type){
-      if (!me.data[type].list){
+      if (!me.data[type] || !me.data[type].list){
         me.setParams(type);
       }
 

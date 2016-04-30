@@ -15,8 +15,39 @@
   </form>
 </div>
 
-<div class="mdl-grid">
-  <div ng-repeat="dataset in datasets">
+<style>
+  .demo-card-wide.mdl-card {
+    width: 512px;
+    margin: 10px auto;
+  }
+  .demo-card-wide > .mdl-card__title {
+    color: #000;
+    font-weight: bold;
+    height: 176px;
+    background: center / cover;
+  }
+  .demo-card-wide > .mdl-card__menu {
+    color: #fff;
+  }
+</style>
 
+<div class="mdl-grid">
+  <div class="demo-card-wide mdl-card mdl-shadow--2dp" ng-repeat="item in datasets | filter: data.search">
+    <div class="mdl-card__title" style="background-image:url({{item.image}})">
+      <h2 class="mdl-card__title-text">{{ item.name }}</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+      {{ item.description }}
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ui-sref="data">
+        <i class="fa fa-compass"></i> Explore
+      </a>
+    </div>
+    <div class="mdl-card__menu">
+      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">share</i>
+      </button>
+    </div>
   </div>
 </div>

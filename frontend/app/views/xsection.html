@@ -42,26 +42,15 @@
   <div class="mdl-cell--12-col mdl-card mdl-shadow--2dp">
     <div class="mdl-card__title">
       <h2 class="mdl-card__title-text"><i class="material-icons">assessment</i> Damage in {{visualization.map.year }} vs.
-        <md-select ng-model="visualization.map.comparison.name">
+        <md-select ng-model="visualization.comparison" ng-change="updateAnalytics()">
           <md-option ng-repeat="item in statistics" value="{{item.name}}">
             {{item.title}}
           </md-option>
-        </md-select>
+        </md-select> in 2010
       </h2>
     </div>
     <div class="mdl-card__supporting-text damage-chart" style="width:100%">
       <nvd3 options="options" data="chartData"></nvd3>
-    </div>
-    <div class="mdl-card__actions mdl-card--border">
-      <!-- Slider with Starting Value -->
-      <div layout>
-        <div flex="10" layout layout-align="center center">
-          <span class="md-body-1">Select Year</span>
-        </div>
-        <md-slider flex class="md-primary" md-discrete ng-model="visualization.map.year" min="{{visualization.map.yearMin}}" ng-disabled="loadingEvents"
-                   max="{{visualization.map.yearMax}}" ng-change="onYearChange(visualization.map.year)" aria-label="Map Year">
-        </md-slider>
-      </div>
     </div>
     <div class="mdl-card__menu">
       <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">

@@ -57,7 +57,7 @@ angular
      * Default id for restangular objects is their key
      */
     RestangularProvider
-      .setBaseUrl('https://project-eos-app.appspot.com/api/v1/')
+      .setBaseUrl('http://localhost:8080/api/v1/')
       .setRestangularFields({
         id : 'key'
       });

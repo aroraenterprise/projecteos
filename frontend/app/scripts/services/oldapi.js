@@ -37,4 +37,31 @@ angular.module('frontendApp')
       });
       return promise;
     };
+
+    this.populations = {
+      list:[],
+      meta: {},
+      params: {limit: 300}
+    };
+
+    this.listPopulations = function(){
+      var promise = $http({
+        url: baseUrl + 'populations',
+        params: me.populations.params,
+        method: 'get'
+      });
+
+      promise.then(function(response){
+        if (response.data) {
+          angular.forEach(response.data.list, function (item) {
+            me.populations.list.push(item);
+          });
+        }
+        me.populations.meta = response.data.meta;
+        me.populations.params.cursor = response.data.meta.next_cursor;
+      }, function(error){
+        console.log(error);
+      });
+      return promise;
+    };
   });
