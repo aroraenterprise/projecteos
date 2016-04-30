@@ -8,20 +8,14 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('DataCtrl', function ($scope, apiService) {
-    var pageSize = 100;
-    $scope.items = apiService.storms;
+  .controller('DataCtrl', function ($scope, oldApiService) {
+    oldApiService.storms.params = {limit: 100};
+    $scope.items = oldApiService.storms.list;
 
     $scope.goNext = function(more){
-      if (!apiService.ready)
-        return;
-
-      if (!apiService.params){
-        apiService.params = {limit: pageSize};
-      }
-      if (!apiService.storms.list || more && apiService.storms.meta.more){
-        apiService.listStorms().then(function(){
-          $scope.items = apiService.storms;
+      if (oldApiService.storms.list.length == 0 || more && oldApiService.storms.meta.more){
+        oldApiService.list().then(function(){
+          $scope.items = oldApiService.storms;
         });
       }
     };
